@@ -1,31 +1,31 @@
-const express = require("express");
-const app = express();
-const mongoose = require("mongoose");
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 
-const cors = require("cors");
-const helmet = require("helmet");
+import { Provider } from "react-redux";
+import curdStore from "./Store/crud-store";
+const container = document.getElementById("root");
+const root = createRoot(container);
+root.render(
+  <BrowserRouter>
+    <Provider store={curdStore}>
+      <App />
+    </Provider>
+  </BrowserRouter>
+);
 
-app.use(express.json());
-app.use(express.urlencoded({extended:true}))
-app.use(helmet())
-app.use(cors());
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
 
-// http://localhost:3000/user/
-
-app.use("/user", require("./routes/user"));
-
-app.get("/", (req, res)=>{
-    res.send("Welcome to the Capstone Project")
-})
-
-app.listen(5000, (e)=>{
-    console.log("Connected")
-
-    mongoose.connect("mongodb://localhost/capstone").then((result)=>{
-        console.log("Database Connected")
-    }).catch((e)=>{
-        console.log("Database connection failed")
-        console.log(e)
-    })
-
-})
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
